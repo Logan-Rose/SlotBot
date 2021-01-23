@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+  <form id="credentials">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"> <br> <br>
+    <input type="submit" name="signup" value="Sign Up" id="signUp">
+    <input type="submit" name="signin" value="Sign In" id="signIn">
+  </form>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyAyFMUr8k-CFEX2PVsb5cunKfn7uIu8UCc",
+      authDomain: "slotbot-111db.firebaseapp.com",
+      projectId: "slotbot-111db",
+      storageBucket: "slotbot-111db.appspot.com",
+      messagingSenderId: "870005551857",
+      appId: "1:870005551857:web:9e61ee470d5751e684ef50",
+      measurementId: "G-DHY45VLVY4"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    db.settings({timestampsInSnapshots:true});
+
+  </script>
+  
+  <script src="auth.js"></script>
+</body>
+</html>
