@@ -8,19 +8,21 @@
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="signUp.css">
 
 </head>
 
 <body>
 
-  <form id="credentials">
+  <form id="signUp">
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email"><br>
     <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password"> <br> <br>
-    <input type="submit" name="signin" value="Sign In" id="signIn">
+    <input type="password" id="password" name="password"> <br>
+    <label for="text">Name:</label><br>
+    <input type="text" id="name" name="name"> <br><br>
     <input type="submit" name="signup" value="Sign Up" id="signUp">
+    <input type="button" name="back" value="Back" id="back" onclick="goBack()">
     
   </form>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -53,6 +55,6 @@
 
   </script>
   
-  <script src="auth.js"></script>
+  <script src="signUp.js"></script>
 </body>
 </html>
