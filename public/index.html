@@ -3,26 +3,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="index.css">
-
+  <title>Slot Bot</title>
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-
-  <form id="credentials">
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email"><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password"> <br> <br>
-    <input type="submit" name="signin" value="Sign In" id="signIn">
-    <input type="submit" name="signup" value="Sign Up" id="signUp">
-    
-  </form>
+    <img class="logo" src="logo.png">
+    <form id="credentials">
+      <input class="userInput" placeholder= "Email Address" type="email" id="email" name="email">
+      <br>
+      <input class="userInput" placeholder= "Password" type="password" id="password" name="password">
+      <div class="buttons">
+        <input class="button" type="submit" name="signin" value="Sign In" id="signIn">
+        <input class="button" type="submit" name="signup" value="Sign Up" id="signUp">
+      </div>
+    </form>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>

@@ -16,12 +16,14 @@ credentialInput.addEventListener('submit', (event) => {
             email: email,
             name: name,
             preferences: [],
-            scratches: []
+            scratches: [],
+            checkedIn: false,
         };
         db.collection('users').doc(email).set(userData).then(function() {
             console.log("Document successfully written!");
+            goBack();
         });
-        goBack();
+        
     }).catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
