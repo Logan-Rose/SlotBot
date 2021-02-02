@@ -1,4 +1,55 @@
-.button{
+#credentials{
+    border-radius: 10px;
     border-style: solid;
-    border-color: green;
+    background-color: white;
+    padding: 10px;
+}
+
+.logo{
+    padding: 50px;
+    width: 25%;
+    height: 25%;
+}
+
+.userInput{
+    padding: 10px;
+    margin:10px;
+    height: 50px;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: gray;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.button{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    border-style:none;
+    background-color: rgb(230, 230, 230);
+}
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+.button:hover{
+    transition-duration: 1s;
+    background-color: rgb(173, 173, 173);
+}
+
+.userInput::selection{
+    border-style: none;
+}
+
+body{
+    background-color:  rgb(143, 0, 26);;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

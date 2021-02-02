@@ -1,7 +1,12 @@
-auth.onAuthStateChanged(user => {
-    console.log(user)
-})
-
+auth.onAuthStateChanged(function(user) {
+    if (user) {
+        console.log("signed in")
+        window.location = '/dashboard/home.html';
+        console.log(cred)
+    } else {
+        console.log("no user")
+    }
+  });
 
 
 db.collection('users').get().then(snapshot => {
@@ -18,9 +23,6 @@ credentialInput.addEventListener('submit', (event) => {
         window.location.href = '/signUp/signUp.html';
     } else{
         auth.signInWithEmailAndPassword(email,password).then(cred => {
-            console.log("signed in")
-            window.location.href = '/dashboard/home.html';
-            console.log(cred)
         }).catch((error) => {
             let errorCode = error.code;
             let errorMessage = error.message;

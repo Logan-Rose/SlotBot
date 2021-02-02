@@ -6,7 +6,6 @@ auth.onAuthStateChanged(function(user) {
                 users.push(doc.data())
             });
             console.log(users[0])
-            document.getElementById('welcome').innerHTML = 'Welcome, '+ users[0].name;
         });
 
         

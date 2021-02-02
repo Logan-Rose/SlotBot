@@ -4,28 +4,45 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="signUp.css">
+  <title>preferences</title>
+  <meta name="description" content="preferences">
+  <link rel="stylesheet" href="preferences.css">
 
 </head>
 
 <body>
-  <img class="logo" src="../logo.png">
-  <form id="credentials">
-    <h1>Sign Up</h1>
-    <input class="userInput" type="text" id="name" name="name" placeholder="Name"> <br>
-    <input class="userInput" type="email" id="email" name="email" placeholder="Email Address"><br>
-    <input class="userInput" type="password" id="password" name="password" placeholder="Password"> <br>
+<div class = "banner">
 
-    <div class="buttons">
-      <input class="button" type="submit" name="signup" value="Sign Up" id="signUp">
-      <input class="button" type="button" name="back" value="Back" id="back" onclick="goBack()">
-    </div>
-    
-  </form>
+</div>
+
+<div class="content">
+
+  <div class="slotting">
+    <table>
+      <tr>
+        <th>Debater</th>
+        <th>Rank</th>
+        <th>Scratched</th>
+      </tr>
+      <tr>
+        <td>Logan</td>
+        <td>2</td>
+        <td>False</td>
+      </tr>
+    </table>
+  </div>
+<br>
+  <div class="buttons">
+    <button> <a href="../dashboard/home.html">Back to dashboard</a></button>
+    <button onclick="signOut()">Sign out</button>
+  </div>
+
+</div>
+
+
+
+
+
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
@@ -56,6 +73,6 @@
 
   </script>
   
-  <script src="signUp.js"></script>
+  <script src="preferences.js"></script>
 </body>
 </html>
