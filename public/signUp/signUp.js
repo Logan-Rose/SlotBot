@@ -2,8 +2,9 @@ db.collection('users').get().then(snapshot => {
     console.log(snapshot.docs);
 })
 
-let credentialInput = document.getElementById('signUp');
+let credentialInput = document.getElementById('credentials');
 credentialInput.addEventListener('submit', (event) => {
+    console.log("heere");
     event.preventDefault();
     const email = credentialInput['email'].value
     const password = credentialInput['password'].value
