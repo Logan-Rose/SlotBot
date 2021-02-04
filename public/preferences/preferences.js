@@ -7,7 +7,6 @@ auth.onAuthStateChanged(function(user) {
             });
             console.log(users[0])
         });
-
         
         console.log(users)
     }else {
@@ -21,6 +20,22 @@ function signOut(){
         console.log("Sign out failed");
     });
 }
+
+let test = [
+    {name: "Logan", rank: 1, scratched: false},
+    {name: "Vasu", rank: 2, scratched: true},
+    {name: "James", rank: 3, scratched: true},
+]
+
+let table = document.getElementById('slotting');
+test.forEach(function(object) {
+    let tr = document.createElement('tr');
+    tr.innerHTML = 
+        '<td>' + object.name + '</td>' +
+        '<td>' + object.rank + '</td>' +
+        '<td>' + object.scratched + '</td>';
+    table.appendChild(tr);
+});
 
 
 /**
