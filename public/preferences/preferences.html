@@ -29,7 +29,6 @@
 <br>
   <div class="buttons">
     <button> <a href="../dashboard/home.html">Back to dashboard</a></button>
-    <button onclick="signOut()">Sign out</button>
   </div>
 
 </div>
@@ -67,7 +66,7 @@
     db.settings({timestampsInSnapshots:true});
 
   </script>
-  
-  <script src="preferences.js"></script>
+  <script type="module" src="../User.js"></script>
+  <script type="module" src="preferences.js"></script>
 </body>
 </html>
