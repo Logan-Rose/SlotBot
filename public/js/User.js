@@ -1,4 +1,4 @@
-class User{
+export default class User{
     constructor(checkedIn, email, name ){
         this.checkedIn = checkedIn;
         this.email = email;
@@ -43,6 +43,10 @@ class User{
             }
         }
         return false;
+    }
+
+    scratchUser(){
+        console.log("scratch user")
     }
 
 }

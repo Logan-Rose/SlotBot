@@ -2,9 +2,8 @@ db.collection('users').get().then(snapshot => {
     console.log(snapshot.docs);
 })
 
-let credentialInput = document.getElementById('credentials');
+let credentialInput = document.getElementById('signUpCredentials');
 credentialInput.addEventListener('submit', (event) => {
-    console.log("heere");
     event.preventDefault();
     const email = credentialInput['email'].value
     const password = credentialInput['password'].value
@@ -22,7 +21,7 @@ credentialInput.addEventListener('submit', (event) => {
         };
         db.collection('users').doc(email).set(userData).then(function() {
             console.log("Document successfully written!");
-            goBack();
+            window.location = 'home.html';
         });
         
     }).catch((error) => {
@@ -31,7 +30,7 @@ credentialInput.addEventListener('submit', (event) => {
         console.log(errorCode, errorMessage)
     });
 });
-
 function goBack(){
-    window.location.href = '../../';
+    console.log("back")
+    window.location = 'index.html';
 }

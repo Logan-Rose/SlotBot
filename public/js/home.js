@@ -13,7 +13,7 @@ auth.onAuthStateChanged(function(user) {
                         scratches: doc.data().scratches
                     })
             });
-            currentUser = users.filter(user => user.email == auth.currentUser.email)[0];
+            currentUser = users.filter(user => user.email.toLowerCase() == auth.currentUser.email)[0];
             document.getElementById('welcome').innerHTML = 'Welcome, '+ currentUser.name;
         });
     }else {
@@ -22,7 +22,7 @@ auth.onAuthStateChanged(function(user) {
   });
 function signOut(){
     firebase.auth().signOut().then(() => {
-        window.location = '../index.html';
+        window.location = 'index.html';
     }).catch((error) => {
         console.log("Sign out failed");
     });

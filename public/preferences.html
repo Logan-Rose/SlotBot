@@ -4,15 +4,13 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-  <link rel="stylesheet" href="home.css">
+  <title>preferences</title>
+  <meta name="description" content="preferences">
+  <link rel="stylesheet" href="css/preferences.css">
 
 </head>
 
 <body>
-<label id="welcome"></label>
 <div class = "banner">
 
 </div>
@@ -20,33 +18,17 @@
 <div class="content">
 
   <div class="slotting">
-    <table>
+    <table id="slotting">
       <tr>
-        <th colspan="2">Opening Government</th>
-        <th colspan="2">Opening Opposition</th>
-      </tr>
-      <tr>
-        <td>Logan</td>
-        <td>Vasu</td>
-        <td>James</td>
-        <td>Lili</td>
-      </tr>
-        <th colspan="2">Closing Government</th>
-        <th colspan="2">Closing Opposition</th>
-      <tr>
-        <td>Urooj</td>
-        <td>Jaleelah</td>
-        <td>Ash</td>
-        <td>Anais</td>
+        <th>Debater</th>
+        <th>Rank</th>
+        <th>Scratched</th>
       </tr>
     </table>
   </div>
-
+<br>
   <div class="buttons">
-    <button class= "checkedOut" id="checkIn">Click here to check in</button>
-    <button> <a href="../preferences/preferences.html">Preferences and Scratches</a></button>
-    <button id="admin"> <a href>Make Slotting</a></button>
-    <button onclick="signOut()">Sign out</button>
+    <button> <a href="../home.html">Back to dashboard</a></button>
   </div>
 
 </div>
@@ -84,7 +66,7 @@
     db.settings({timestampsInSnapshots:true});
 
   </script>
-  
-  <script src="home.js"></script>
+  <script type="module" src="js/User.js"></script>
+  <script type="module" src="js/preferences.js"></script>
 </body>
 </html>

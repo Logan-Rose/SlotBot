@@ -1,7 +1,7 @@
 auth.onAuthStateChanged(function(user) {
     if (user) {
         console.log("signed in")
-        window.location = '/dashboard/home.html';
+        window.location = 'home.html';
         console.log(cred)
     } else {
         console.log("no user")
@@ -20,7 +20,7 @@ credentialInput.addEventListener('submit', (event) => {
     const email = credentialInput['email'].value
     const password = credentialInput['password'].value
     if(action === "signUp"){
-        window.location.href = '/signUp/signUp.html';
+        window.location.href = 'signUp.html';
     } else{
         auth.signInWithEmailAndPassword(email,password).then(cred => {
         }).catch((error) => {
