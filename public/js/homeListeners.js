@@ -1,6 +1,10 @@
 function onInit(){
     console.log("Homepage:", currentUser);
+    if(currentUser.admin){
+        document.getElementById("admin").hidden = false
+    }
 }
+
 document.getElementById('checkIn').addEventListener("click", function(){
     if(currentUser.checkedIn){
         console.log("checking out");
@@ -20,6 +24,15 @@ document.getElementById('checkIn').addEventListener("click", function(){
         });
     }
 });
+
+document.getElementById('admin').addEventListener("click", function(){
+    window.location = "admin.html"
+})
+
+document.getElementById('preferencesButton').addEventListener("click", function(){
+    window.location = "preferences.html"
+})
+
 
 function signOut(){
     firebase.auth().signOut().then(() => {

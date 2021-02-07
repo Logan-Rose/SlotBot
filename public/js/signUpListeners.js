@@ -13,6 +13,7 @@ credentialInput.addEventListener('submit', (event) => {
         console.log(cred)
 
         var userData = {
+            admin:false,
             email: email,
             name: name,
             preferences: [],

@@ -1,6 +1,13 @@
 function onInit(){
     console.log(currentUser)
-    fillTable(users);
+    if(!currentUser.admin){
+        console.log("frig off Ash");
+        window.location = "home.html"
+    } else{
+        let activeUsers = users.filter(user => user.checkedIn);
+        fillTable(activeUsers);
+    }
+
 }
 
 function fillTable(users){
@@ -9,10 +16,7 @@ function fillTable(users){
     users.forEach(function(user) {
         
         let tr = document.createElement('tr');
-        tr.innerHTML = 
-            '<td>' + user.name + '</td>' +
-            '<td>' + user.email + '</td>' +
-            '<td> <button onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratched(currentUser, user.email) + '</button></td>';
+        tr.innerHTML = '<td>' + user.name + '</td>';
         table.appendChild(tr);
     });
 }

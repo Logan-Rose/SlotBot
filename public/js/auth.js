@@ -8,6 +8,7 @@ auth.onAuthStateChanged( user => {
             querySnapshot.forEach(function(doc) {
                 users.push(
                     {
+                        admin: doc.data().admin,
                         name: doc.data().name,
                         email: doc.data().email,
                         checkedIn: doc.data().checkedIn,
@@ -18,6 +19,7 @@ auth.onAuthStateChanged( user => {
             currentUser = users.filter(user => user.email.toLowerCase() == auth.currentUser.email)[0];
             console.log(users);
             onInit();
+            
         });
     }
     else {
