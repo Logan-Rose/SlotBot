@@ -1,33 +1,6 @@
-
-auth.onAuthStateChanged(function(user) {
-    if (user) {
-        let users = []
-        db.collection("users").get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                users.push(
-                    {
-                        name: doc.data().name,
-                        email: doc.data().email,
-                        checkedIn: doc.data().checkedIn,
-                        preferences: doc.data().preferences,
-                        scratches: doc.data().scratches
-                    })
-            });
-            currentUser = users.filter(user => user.email.toLowerCase() == auth.currentUser.email)[0];
-            document.getElementById('welcome').innerHTML = 'Welcome, '+ currentUser.name;
-        });
-    }else {
-      // No user is signed in.
-    }
-  });
-function signOut(){
-    firebase.auth().signOut().then(() => {
-        window.location = 'index.html';
-    }).catch((error) => {
-        console.log("Sign out failed");
-    });
+function onInit(){
+    console.log("Homepage:", currentUser);
 }
-
 document.getElementById('checkIn').addEventListener("click", function(){
     if(currentUser.checkedIn){
         console.log("checking out");
@@ -44,12 +17,17 @@ document.getElementById('checkIn').addEventListener("click", function(){
             console.log("Document successfully updated!");
             document.getElementById('checkIn').className = "checkedIn"
             document.getElementById('checkIn').innerText = "Checked In"
-
-
         });
     }
 });
 
+function signOut(){
+    firebase.auth().signOut().then(() => {
+        window.location = 'index.html';
+    }).catch((error) => {
+        console.log("Sign out failed");
+    });
+}
 /**
  * if admin
  * document.getElementById("myP").style.visibility = "visible";

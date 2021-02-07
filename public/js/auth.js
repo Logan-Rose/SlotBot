@@ -1,32 +1,36 @@
-auth.onAuthStateChanged(function(user) {
+var authFlag = true;
+let users = []
+auth.onAuthStateChanged( user => {
+  if(authFlag) {
+    authFlag = false;
     if (user) {
-        console.log("signed in")
-        window.location = 'home.html';
-        console.log(cred)
-    } else {
-        console.log("no user")
-    }
-  });
-
-
-db.collection('users').get().then(snapshot => {
-    console.log(snapshot.docs);
-})
-
-let credentialInput = document.getElementById('credentials');
-credentialInput.addEventListener('submit', (event) => {
-    event.preventDefault();
-    let action = event.submitter.id;
-    const email = credentialInput['email'].value
-    const password = credentialInput['password'].value
-    if(action === "signUp"){
-        window.location.href = 'signUp.html';
-    } else{
-        auth.signInWithEmailAndPassword(email,password).then(cred => {
-        }).catch((error) => {
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            console.log(errorCode, errorMessage)
+        db.collection("users").get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                users.push(
+                    {
+                        name: doc.data().name,
+                        email: doc.data().email,
+                        checkedIn: doc.data().checkedIn,
+                        preferences: doc.data().preferences,
+                        scratches: doc.data().scratches
+                    })
+            });
+            currentUser = users.filter(user => user.email.toLowerCase() == auth.currentUser.email)[0];
+            console.log(users);
+            onInit();
         });
     }
+    else {
+        authFlag = true;
+    }
+  }
 });
+db.collection('users').get().then(snapshot => {
+    //console.log(snapshot.docs);
+})
+
+function scratched(user, email){
+    console.log(user.email, " - ", email, " - ", user.scratches.includes(email))
+    return user.scratches.includes(email)
+
+}

@@ -1,4 +1,4 @@
-export default class User{
+class User{
     constructor(checkedIn, email, name ){
         this.checkedIn = checkedIn;
         this.email = email;
