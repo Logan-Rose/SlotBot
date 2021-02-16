@@ -1,5 +1,6 @@
 function onInit(){
     console.log("Homepage:", currentUser);
+    document.getElementById('welcome').innerHTML = "Welcome " + currentUser.name; 
     if(currentUser.admin){
         document.getElementById("admin").hidden = false
     }

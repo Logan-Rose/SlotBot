@@ -1,29 +1,29 @@
-#signUpCredentials{
+.logo{
+    padding: 50px;
+    width: 30%;
+    height: 30%;
+}
+.content{
     border-radius: 10px;
     border-style: solid;
     background-color: white;
     padding: 10px;
 }
-
-.logo{
-    padding: 50px;
-    width: 25%;
-    height: 25%;
-}
-
-.userInput{
-    padding: 10px;
-    margin:10px;
-    height: 50px;
-    border-radius: 20px;
+table{
     border-style: solid;
-    border-width: 2px;
-    border-color: gray;
+    border-color: black;
+    border-collapse:collapse
 }
+th, td {
+    padding: 5px;
+    text-align: center;
+    border-style: solid;
+}
+
 
 .buttons{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -34,17 +34,10 @@
     border-style:none;
     background-color: rgb(230, 230, 230);
 }
-h1{
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-.button:hover{
-    transition-duration: 1s;
-    background-color: rgb(173, 173, 173);
-}
 
-.userInput::selection{
-    border-style: none;
+.button:hover{
+    transition-duration: 5s;
+    background-color: rgb(173, 173, 173);
 }
 
 body{

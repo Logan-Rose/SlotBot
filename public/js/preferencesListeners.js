@@ -1,21 +1,60 @@
+let base, randomized, dragging, draggedOver;
 function onInit(){
     console.log(currentUser)
-    fillTable(users);
+    fillTable(currentUser.preferences);
 }
 
-function fillTable(users){
-    console.log(users.length);
+function fillTable(list){
+    //currentUser.preferences.forEach(u => us)
     let table = document.getElementById('slotting');
-    users.forEach(function(user) {
-        
+    table.innerHTML = '<tr><th>Ranking</th><th>Debater</th><th>Scratched</th></tr>'
+    let i = 0
+    list.forEach(function(user) {
         let tr = document.createElement('tr');
+        tr.draggable = true;
+        tr.className = "row";
+        tr.id = i
+        tr.addEventListener('drag', setDragging); 
+        tr.addEventListener('dragover', setDraggedOver);
+        tr.addEventListener('drop', move);
         tr.innerHTML = 
+            '<td>' + i + '</td>' + 
             '<td>' + user.name + '</td>' +
-            '<td>' + user.email + '</td>' +
-            '<td> <button onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratched(currentUser, user.email) + '</button></td>';
+            '<td> <button onClick="scratchUser(this)" value=' +user+' id=' +user+'>' + scratched(currentUser, user) + '</button></td>';
         table.appendChild(tr);
+        i++
     });
 }
+
+const setDragging = (e) =>{
+    e.preventDefault();
+    dragging = parseInt(e.target.id)
+}
+
+function setDraggedOver(e) {
+    e.preventDefault();
+    draggedOver = parseInt(e.path[1].id)
+}
+
+const move = (e) =>{
+    console.log("--", users[dragging], users[draggedOver]);
+    let index1 = dragging
+    let index2 = draggedOver;
+    let temp = currentUser.preferences[index1]
+    currentUser.preferences.splice(index1, 1)
+    currentUser.preferences.splice(index2, 0, temp)
+    //console.log(users)
+
+    //Make a list containing only emails for easier reference
+    //console.log(prefs)
+    //update preferences in database
+    db.collection("users").doc(currentUser.email).update({preferences: currentUser.preferences}).then(function(){
+        fillTable(currentUser.preferences)
+    })
+    
+  };
+
+
 
 function scratchUser(scratch){
     if(scratched(currentUser, scratch.value)){
@@ -27,9 +66,4 @@ function scratchUser(scratch){
         console.log("updated!");
     })
     document.getElementById(scratch.value).innerHTML = scratched(currentUser, scratch.value);
-    
-
-    
-    //currentUser.scratches.push(scratch);
-    //db.collection("users").doc(currentUser.email).set(currentUser)
 }

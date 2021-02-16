@@ -5,14 +5,14 @@
 }
 table{
     border-style: solid;
-    border-color: white;
     border-collapse: collapse;
+    margin: 5px;
+    background-color: whitesmoke;
 
 }
 th, td {
     padding: 15px;
     text-align: center;
-    border: 1px solid #ddd;
     border-collapse: collapse;
 }
 
@@ -60,4 +60,11 @@ body{
     font-size: 18px;
     padding: 10px;
 
+}
+
+
+tr{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: black;
 }

@@ -11,18 +11,29 @@ credentialInput.addEventListener('submit', (event) => {
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         console.log("signed up")
         console.log(cred)
+        let prefs = []
+        db.collection("users").get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                prefs.push({email: doc.data().email ,name: doc.data().name })
+            });
+            var userData = {
+                admin:false,
+                email: email,
+                name: name,
+                preferences: prefs,
+                scratches: [],
+                checkedIn: false,
+            };
 
-        var userData = {
-            admin:false,
-            email: email,
-            name: name,
-            preferences: [],
-            scratches: [],
-            checkedIn: false,
-        };
-        db.collection('users').doc(email).set(userData).then(function() {
-            console.log("Document successfully written!");
-            window.location = 'home.html';
+            db.collection('users').forEach(u => {
+                u.set(userData).then(function() {
+                });
+            });
+
+            db.collection('users').doc(email).set(userData).then(function() {
+                console.log("Document successfully written!");
+                window.location = 'home.html';
+            });
         });
         
     }).catch((error) => {

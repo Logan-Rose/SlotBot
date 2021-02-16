@@ -19,7 +19,7 @@ auth.onAuthStateChanged( user => {
             currentUser = users.filter(user => user.email.toLowerCase() == auth.currentUser.email)[0];
             console.log(users);
             onInit();
-            
+
         });
     }
     else {
@@ -32,7 +32,6 @@ db.collection('users').get().then(snapshot => {
 })
 
 function scratched(user, email){
-    console.log(user.email, " - ", email, " - ", user.scratches.includes(email))
     return user.scratches.includes(email)
 
 }
