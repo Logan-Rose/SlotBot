@@ -1,27 +1,38 @@
 let base, randomized, dragging, draggedOver;
 function onInit(){
-    console.log(currentUser)
-    fillTable(currentUser.preferences);
+    let prefEmails = []
+    currentUser.preferences.forEach( p =>{
+        prefEmails.push(p.email);
+    })
+    users.forEach(u =>{
+        if(!prefEmails.includes(u.email) && u.email !== currentUser.email){
+            currentUser.preferences.push({name:u.name, email:u.email})
+        } 
+    });
+    db.collection("users").doc(currentUser.email).update({preferences: currentUser.preferences}).then(function(){
+        console.log("updated!");
+        fillTable(currentUser.preferences);
+    })
+    
 }
 
 function fillTable(list){
     //currentUser.preferences.forEach(u => us)
+    console.log("bitch")
     let table = document.getElementById('slotting');
-    table.innerHTML = '<tr><th>Ranking</th><th>Debater</th><th>Scratched</th></tr>'
+    table.innerHTML = '<li>Preferences</li>'
     let i = 0
-    list.forEach(function(user) {
-        let tr = document.createElement('tr');
-        tr.draggable = true;
-        tr.className = "row";
-        tr.id = i
-        tr.addEventListener('drag', setDragging); 
-        tr.addEventListener('dragover', setDraggedOver);
-        tr.addEventListener('drop', move);
-        tr.innerHTML = 
-            '<td>' + i + '</td>' + 
-            '<td>' + user.name + '</td>' +
-            '<td> <button onClick="scratchUser(this)" value=' +user+' id=' +user+'>' + scratched(currentUser, user) + '</button></td>';
-        table.appendChild(tr);
+    list.forEach(user => {
+        console.log(user)
+        let li = document.createElement('li');
+        li.draggable = true;
+        li.id = i
+        li.addEventListener('drag', setDragging); 
+        li.addEventListener('dragover', setDraggedOver);
+        li.addEventListener('drop', move);
+        li.innerHTML = 
+            '<div class="row">' + user.name + '<button onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratched(currentUser, user.email) + '</button></div>';
+        table.appendChild(li);
         i++
     });
 }
@@ -37,18 +48,14 @@ function setDraggedOver(e) {
 }
 
 const move = (e) =>{
-    console.log("--", users[dragging], users[draggedOver]);
-    let index1 = dragging
-    let index2 = draggedOver;
-    let temp = currentUser.preferences[index1]
-    currentUser.preferences.splice(index1, 1)
-    currentUser.preferences.splice(index2, 0, temp)
-    //console.log(users)
-
-    //Make a list containing only emails for easier reference
-    //console.log(prefs)
-    //update preferences in database
+    console.log("hello")
+    console.log("--", currentUser.preferences[dragging], currentUser.preferences[draggedOver]);
+    let temp = currentUser.preferences[dragging]
+    currentUser.preferences.splice(dragging, 1)
+    currentUser.preferences.splice(draggedOver, 0, temp)
+    
     db.collection("users").doc(currentUser.email).update({preferences: currentUser.preferences}).then(function(){
+        console.log("hello")
         fillTable(currentUser.preferences)
     })
     

@@ -16,7 +16,7 @@ credentialInput.addEventListener('submit', (event) => {
             querySnapshot.forEach(function(doc) {
                 prefs.push({email: doc.data().email ,name: doc.data().name })
             });
-            var userData = {
+            let userData = {
                 admin:false,
                 email: email,
                 name: name,
@@ -24,12 +24,6 @@ credentialInput.addEventListener('submit', (event) => {
                 scratches: [],
                 checkedIn: false,
             };
-
-            db.collection('users').forEach(u => {
-                u.set(userData).then(function() {
-                });
-            });
-
             db.collection('users').doc(email).set(userData).then(function() {
                 console.log("Document successfully written!");
                 window.location = 'home.html';
