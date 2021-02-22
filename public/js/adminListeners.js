@@ -2,6 +2,7 @@ let activeUsers;
 let allowIronman = false;
 let numBpRooms = 0;
 let numCpRooms = 0;
+let numberOfDebaters = 0;
 function onInit(){    
     console.log(currentUser)
     if(!currentUser.admin){
@@ -9,6 +10,7 @@ function onInit(){
         window.location = "home.html"
     } else{
         activeUsers = users.filter(user => user.checkedIn);
+        numberOfDebaters = activeUsers.length;
         fillTable(activeUsers);
     }
 }
@@ -25,9 +27,15 @@ function fillTable(users){
     });
 }
 
-document.getElementById("generate").addEventListener("click", function(){    
+document.getElementById("generate").addEventListener("click", function(){  
+    if(numBpRooms*8+numCpRooms*4 > numberOfDebaters){
+        console.log("Not enough debaters")
+        return
+    } else{
+        console.log(numBpRooms*8+numCpRooms*4);
+        console.log(numberOfDebaters)
+    }
     let userRatings = {}
-
 
     users.forEach(u => {
         userRatings[u.email] = 0
@@ -50,7 +58,7 @@ document.getElementById("generate").addEventListener("click", function(){
     if(activeUsers.length % 2 !== 0){
         extra = activeUsers.pop();
         if(allowIronman){
-            teams.push(extra, extra);
+            teams.push([extra, extra]);
         }
     }
     console.log(activeUsers)
@@ -58,33 +66,73 @@ document.getElementById("generate").addEventListener("click", function(){
         teams.push([activeUsers[i], activeUsers[i+1]])
     }
     console.log(teams)
-    let cpRooms = [];
+    
     let bpRooms = [];
-     
     for(let i =0; i < numBpRooms; i++){
         bpRooms.push([...teams.splice(0, 4)])
     }
 
+    let cpRooms = [];
     for(let i =0; i < numCpRooms; i++){
         cpRooms.push([...teams.splice(0, 2)])
     }
     
     console.log("BP rooms:", bpRooms)
     console.log("CP rooms:", cpRooms)
+
     listRooms(bpRooms, cpRooms);
 
-
     
+    writeBpRooms(bpRooms);
+    writeCpRooms(cpRooms);
+    
+    let rooms = [...bpRooms, ...cpRooms]
+    console.log(rooms);   
 
 })
 
+function writeBpRooms(bpRooms){
+    for(let i=0; i< bpRooms.length; i++){
+        let currentRoom = {
+            og: [bpRooms[i][0][0].email, bpRooms[i][0][1].email],
+            oo: [bpRooms[i][1][0].email, bpRooms[i][1][1].email],
+            cg: [bpRooms[i][2][0].email, bpRooms[i][2][1].email],
+            co: [bpRooms[i][3][0].email, bpRooms[i][3][1].email]
+        }
+        db.collection('bpRooms').doc(i.toString()).set(currentRoom).then(function() {
+           console.log("room ", i, " written")
+        });
+    }
+    //delete rooms with index greater than bpRooms.length
+}
+
+function writeCpRooms(cpRooms){
+    for(let i=0; i< cpRooms.length; i++){
+        let currentRoom = {
+            og: [cpRooms[i][0][0].email, cpRooms[i][0][1].email],
+            oo: [cpRooms[i][1][0].email, cpRooms[i][1][1].email]
+        }
+        db.collection('cpRooms').doc(i.toString()).set(currentRoom).then(function() {
+           console.log("room ", i, " written")
+        });
+    }
+    //delete rooms with index greater than bpRooms.length
+}
+
+
 document.getElementById("allowIronMan").addEventListener("input", function(){
+    if(allowIronman){
+        numberOfDebaters--
+    } else{
+        numberOfDebaters++
+    }
     allowIronman = !allowIronman;
+    
 })
 
 document.getElementById("numberOfbpRooms").addEventListener("input", function(e){
     let val = e.target.value*8 + numCpRooms*4
-    if(val > activeUsers.length){
+    if(val > numberOfDebaters){
         document.getElementById("numberOfbpRooms").value = numBpRooms;
         console.log("TOO DAMN HIGH")
     } else{
@@ -94,7 +142,7 @@ document.getElementById("numberOfbpRooms").addEventListener("input", function(e)
 
 document.getElementById("numberOfcpRooms").addEventListener("input", function(e){
     let val = e.target.value*4 + numBpRooms*8
-    if(val > activeUsers.length){
+    if(val > numberOfDebaters){
         document.getElementById("numberOfcpRooms").value = numCpRooms;
         console.log("TOO DAMN HIGH")
     } else{
@@ -112,9 +160,12 @@ function listRooms(bpRooms, cpRooms){
 
 function listcpRooms(rooms){
     let cpContainer = document.createElement('div');
+    let roomNum = 0;
+
     rooms.forEach(room => {
+        roomNum++;
         let table = document.createElement('table');
-        table.innerHTML = '<th>Government</th><th>Opposition</th>'
+        table.innerHTML = '<th colspan=2> CP Room '+ roomNum + '</th> <tr><th>Government</th><th>Opposition</th></tr>'
         let row1 = document.createElement('tr');
         row1.innerHTML = '<td>' + room[0][0].name + '</td>' + '<td>' + room[1][0].name + '</td>';
         table.appendChild(row1);
@@ -122,6 +173,7 @@ function listcpRooms(rooms){
         row2.innerHTML = '<td>' + room[0][1].name + '</td>' + '<td>' + room[1][1].name + '</td>';
         table.appendChild(row2);
         cpContainer.appendChild(table)
+        cpContainer.appendChild(document.createElement('br'));
     })
     return cpContainer;
 }
@@ -129,9 +181,11 @@ function listcpRooms(rooms){
 function listbpRooms(rooms){
     let bpContainer = document.createElement('div');
     bpContainer.innerHTML = ''
+    let roomNum = 0;
     rooms.forEach(room => {
+        roomNum++;
         let table = document.createElement('table');
-        table.innerHTML = '<th>Opening Government</th><th>Opening Opposition</th>'
+        table.innerHTML = '<th colspan=2> BP Room '+ roomNum + '</th> <tr><th>Opening Government</th><th>Opening Opposition</th></tr>'
         let row1 = document.createElement('tr');
         row1.innerHTML = '<td>' + room[0][0].name + '</td>' + '<td>' + room[1][0].name + '</td>';
         table.appendChild(row1);
@@ -149,6 +203,7 @@ function listbpRooms(rooms){
         row4.innerHTML = '<td>' + room[2][1].name + '</td>' + '<td>' + room[3][1].name + '</td>';
         table.appendChild(row4);
         bpContainer.appendChild(table)
+        bpContainer.appendChild(document.createElement('br'));
     })
     return bpContainer;
 }

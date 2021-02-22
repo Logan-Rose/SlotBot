@@ -6,6 +6,24 @@ function onInit(){
     }
 }
 
+
+function getbpRooms(){
+    let rooms = ["hello"]
+    db.collection("bpRooms").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            rooms.push(
+                [
+                    doc.data().og,
+                    doc.data().oo,
+                    doc.data().cg,
+                    doc.data().co,
+                ])
+        });
+        return rooms
+    });
+    
+}
+
 document.getElementById('checkIn').addEventListener("click", function(){
     if(currentUser.checkedIn){
         console.log("checking out");
@@ -42,12 +60,63 @@ function signOut(){
         console.log("Sign out failed");
     });
 }
-/**
- * if admin
- * document.getElementById("myP").style.visibility = "visible";
- * else
- * document.getElementById("myP").style.visibility = "hidden";
- * 
- */
 
+
+function listRooms(bpRooms, cpRooms){
+    let container = document.getElementById('teams');
+    container.innerHTML = '';
+    container.append(listbpRooms(bpRooms));
+    container.append(listcpRooms(cpRooms));
+    
+}
+
+function listcpRooms(rooms){
+    let cpContainer = document.createElement('div');
+    let roomNum = 0;
+
+    rooms.forEach(room => {
+        roomNum++;
+        let table = document.createElement('table');
+        table.innerHTML = '<th colspan=2> CP Room '+ roomNum + '</th> <tr><th>Government</th><th>Opposition</th></tr>'
+        let row1 = document.createElement('tr');
+        row1.innerHTML = '<td>' + room[0][0].name + '</td>' + '<td>' + room[1][0].name + '</td>';
+        table.appendChild(row1);
+        let row2 = document.createElement('tr');
+        row2.innerHTML = '<td>' + room[0][1].name + '</td>' + '<td>' + room[1][1].name + '</td>';
+        table.appendChild(row2);
+        cpContainer.appendChild(table)
+        cpContainer.appendChild(document.createElement('br'));
+    })
+    return cpContainer;
+}
+
+function listbpRooms(rooms){
+    let bpContainer = document.createElement('div');
+    bpContainer.innerHTML = ''
+    let roomNum = 0;
+    rooms.forEach(room => {
+        roomNum++;
+        let table = document.createElement('table');
+        table.innerHTML = '<th colspan=2> BP Room '+ roomNum + '</th> <tr><th>Opening Government</th><th>Opening Opposition</th></tr>'
+        let row1 = document.createElement('tr');
+        row1.innerHTML = '<td>' + room[0][0].name + '</td>' + '<td>' + room[1][0].name + '</td>';
+        table.appendChild(row1);
+        let row2 = document.createElement('tr');
+        row2.innerHTML = '<td>' + room[0][1].name + '</td>' + '<td>' + room[1][1].name + '</td>';
+        table.appendChild(row2);
+
+        let title2 = document.createElement('tr');
+        title2.innerHTML = '<th>Closing Government</th><th>Closing Opposition</th>'
+        table.appendChild(title2)
+        let row3 = document.createElement('tr');
+        row3.innerHTML = '<td>' + room[2][0].name + '</td>' + '<td>' + room[3][0].name + '</td>';
+        table.appendChild(row3);
+        let row4 = document.createElement('tr');
+        row4.innerHTML = '<td>' + room[2][1].name + '</td>' + '<td>' + room[3][1].name + '</td>';
+        table.appendChild(row4);
+        bpContainer.appendChild(table)
+        bpContainer.appendChild(document.createElement('br'));
+    })
+    return bpContainer;
+}
 
