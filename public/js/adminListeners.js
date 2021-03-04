@@ -103,6 +103,14 @@ function writeBpRooms(bpRooms){
            console.log("room ", i, " written")
         });
     }
+    
+    db.collection('bpRooms').get().then(snap => {
+        length = snap.size 
+        for(let i = bpRooms.length; i < length; i++){
+            db.collection('bpRooms').doc(i + "").delete()
+        }
+     });
+    //const res = await db.collection('bpRooms').doc(i + "").delete()
     //delete rooms with index greater than bpRooms.length
 }
 
@@ -116,7 +124,15 @@ function writeCpRooms(cpRooms){
            console.log("room ", i, " written")
         });
     }
-    //delete rooms with index greater than bpRooms.length
+    db.collection('cpRooms').get().then(snap => {
+        length = snap.size
+        console.log(length, cpRooms.length, ":::;");
+        for(let i = cpRooms.length; i < length; i++){
+            db.collection('cpRooms').doc(i + "").delete().then(function(){
+                console.log("Room ", i, " deleted");
+            })
+        }
+     });
 }
 
 
@@ -167,6 +183,7 @@ function listcpRooms(rooms){
         let table = document.createElement('table');
         table.innerHTML = '<th colspan=2> CP Room '+ roomNum + '</th> <tr><th>Government</th><th>Opposition</th></tr>'
         let row1 = document.createElement('tr');
+        console.log(room)
         row1.innerHTML = '<td>' + room[0][0].name + '</td>' + '<td>' + room[1][0].name + '</td>';
         table.appendChild(row1);
         let row2 = document.createElement('tr');
