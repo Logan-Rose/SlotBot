@@ -33,5 +33,4 @@ db.collection('users').get().then(snapshot => {
 
 function scratched(user, email){
     return user.scratches.includes(email)
-
 }

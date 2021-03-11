@@ -4,10 +4,11 @@
     height: 30%;
 }
 .content{
-    border-radius: 10px;
-    border-style: solid;
     background-color: white;
     padding: 10px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 table{
     border-style: solid;
@@ -36,17 +37,20 @@ th, td {
     justify-content: center;
 }
 
-.button{
-    margin: 10px;
-    padding: 20px;
-    border-radius: 20px;
+button{
+    padding: 10px;
     border-style:none;
-    background-color: rgb(230, 230, 230);
+    margin: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    color: black;
+    background-color: rgb(235, 235, 235);
 }
 
-.button:hover{
-    transition-duration: 5s;
-    background-color: rgb(173, 173, 173);
+.menuItem:hover{
+    transition-duration: 0.4s;
+    background-color: rgb(100, 100, 100);
+    color: white;
 }
 
 .userInput::selection{
@@ -60,24 +64,14 @@ body{
     align-items: center;
 }
 #welcome{
-    color: white;
+    color: black;
     font-size: 18px;
     padding: 10px;
 }
-
-#checkIn{
-    padding: 10px;
-    border-style: none;
-    border-radius: 10px;
-    margin: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: large;
-    color: white;
-}
-
 .checkedIn{
     background-color: green;
 }
+
 .checkedOut{
-    background-color: red;
+    background-color: rgb(143, 0, 26)
 }

@@ -30,8 +30,13 @@ function fillTable(list){
         li.addEventListener('drag', setDragging); 
         li.addEventListener('dragover', setDraggedOver);
         li.addEventListener('drop', move);
-        li.innerHTML = 
-            '<div class="row">' + user.name + '<button onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratched(currentUser, user.email) + '</button></div>';
+        if(scratched(currentUser, user.email)){
+            li.innerHTML = 
+            '<div class="row"><label class="debater">' + user.name + '</label><button class="scratched" onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratchedIcon(currentUser, user.email) + '</button></div>';
+        } else{
+            li.innerHTML = 
+            '<div class="row"><label class="debater">' + user.name + '</label><button class="notScratched" onClick="scratchUser(this)" value=' +user.email+' id=' +user.email+'>' + scratchedIcon(currentUser, user.email) + '</button></div>';
+        }
         table.appendChild(li);
         i++
     });
@@ -66,11 +71,25 @@ const move = (e) =>{
 function scratchUser(scratch){
     if(scratched(currentUser, scratch.value)){
         currentUser.scratches = currentUser.scratches.filter(email => email !== scratch.value)
+        console.log(scratch.email);
+        document.getElementById(scratch.value).className = "notScratched"
     } else{
+        console.log(scratch.value);
         currentUser.scratches.push(scratch.value);
+        document.getElementById(scratch.value).className = "scratched"
     }
     db.collection("users").doc(currentUser.email).update({scratches: currentUser.scratches}).then(function(){
         console.log("updated!");
     })
-    document.getElementById(scratch.value).innerHTML = scratched(currentUser, scratch.value);
+    document.getElementById(scratch.value).innerHTML = scratchedIcon(currentUser, scratch.value);
+    
+}
+
+
+function scratchedIcon(user1, user2){
+    if(scratched(user1, user2)){
+        return 'X'
+    } else{
+        return ''
+    }
 }

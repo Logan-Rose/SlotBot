@@ -77,12 +77,12 @@ document.getElementById("generate").addEventListener("click", function(){
             if(table[i][j] == -1 || table[j][i] == -1){
                 pairingStrengths[i][j] = 0
             } else{
-                pairingStrengths[i][j] = Math.round(10*( (table[i][j] + table[j][i])/(i + j))) //This line determines the ranking, work opn this formula
+                pairingStrengths[i][j] = table[i][j]*(pairingStrengths[i].length -i) + table[j][i]*(pairingStrengths[i].length -j) //This line determines the ranking, work opn this formula
             }
          }
     }
-    
-    console.log(table);
+    console.log(table)
+    console.log(activeUsers)
     console.log(pairingStrengths);
     console.log('----  ----')
 

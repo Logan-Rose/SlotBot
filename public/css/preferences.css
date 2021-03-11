@@ -7,7 +7,7 @@ ul{
     border-style: solid;
     padding: 10px;
     margin: 5px;
-    background-color: whitesmoke;
+    background-color: white;
     list-style-type: none;
     align-items: center;
 
@@ -19,13 +19,39 @@ th, td {
 }
 
 .row{
-    
-    border-style: solid;
-    border-radius: 10px;
-    border-color: black;
-    background-color: white;
     padding: 10px;
+    border-style:none;
     margin: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-width:200px;
+    font-size: large;
+    color: black;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    justify-content: space-between;
+}
+
+.row:hover{
+    transition-duration: 0.4s;
+    background-color: rgb(100, 100, 100);
+    color: white;
+}
+
+.scratched{
+    background-color: red;
+    width: 25px;
+    height: 25px;
+    border-style: none;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    color: white;
+}
+.notScratched{
+    background-color: green;
+    width: 25px;
+    height: 25px;
+    border-style: none;
+
 }
 
 .userInput{
@@ -71,5 +97,4 @@ body{
     color: white;
     font-size: 18px;
     padding: 10px;
-
 }
